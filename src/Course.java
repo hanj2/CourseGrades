@@ -16,7 +16,7 @@ public class Course {
     private String[] Grades;
     private String Average;
 
-    //the getters
+    //the getters, read-only for security reason
     public String getCRN(){
         return CRN;
     }
