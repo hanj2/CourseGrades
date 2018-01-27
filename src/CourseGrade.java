@@ -142,22 +142,21 @@ public class CourseGrade {
         return totalNumOfStudents;
     }
 
-    // some global variables representing index in the grade array of each course
-
-    public static final int GRADE_A_PLUS = 0;
-    public static final int GRADE_A = 1;
-    public static final int GRADE_A_MINUS = 2;
-    public static final int GRADE_B_PLUS = 3;
-    public static final int GRADE_B = 4;
-    public static final int GRADE_B_MINUS = 5;
-    public static final int GRADE_C_PLUS = 6;
-    public static final int GRADE_C = 7;
-    public static final int GRADE_C_MINUS = 8;
-    public static final int GRADE_D_PLUS = 9;
-    public static final int GRADE_D = 10;
-    public static final int GRADE_D_MINUS = 11;
-    public static final int GRADE_F = 12;
-    public static final int GRADE_W = 13;
+    // some global variables representing index in the grade array of each course, read-only for safety reason
+    private static final int GRADE_A_PLUS = 0;
+    private static final int GRADE_A = 1;
+    private static final int GRADE_A_MINUS = 2;
+    private static final int GRADE_B_PLUS = 3;
+    private static final int GRADE_B = 4;
+    private static final int GRADE_B_MINUS = 5;
+    private static final int GRADE_C_PLUS = 6;
+    private static final int GRADE_C = 7;
+    private static final int GRADE_C_MINUS = 8;
+    private static final int GRADE_D_PLUS = 9;
+    private static final int GRADE_D = 10;
+    private static final int GRADE_D_MINUS = 11;
+    private static final int GRADE_F = 12;
+    private static final int GRADE_W = 13;
 
     //students that receives a range of grades, a case-insensitive method
     //create a hashmap to connect grade letters with GPAs
@@ -191,7 +190,7 @@ public class CourseGrade {
         return studentsInGradeRange;
     }
 
-    public static final String ERROR_OF_DIVIDER_AS_ZERO = "The divider is zero!";
+    private static final String ERROR_OF_DIVIDER_AS_ZERO = "The divider is zero!";
     // a method calculating the arithmetic mean of the gpa averages weighted by the course enrollment
     // weight = (sum of student number * avg GPA of each course)/total student number
     public static double meanOfGradeWeight(ArrayList<Course> courses) throws NullPointerException{
@@ -205,7 +204,6 @@ public class CourseGrade {
         if(studentsOfAllCourses == 0){
             Exception e = new Exception(ERROR_OF_DIVIDER_AS_ZERO);
         }
-        double weight = sumOfGrades / studentsOfAllCourses;
-        return weight;
+        return sumOfGrades / studentsOfAllCourses;
     }
 }
