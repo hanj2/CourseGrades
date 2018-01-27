@@ -1,5 +1,10 @@
-import java.util.List;
-
+/**
+ * the course being represented by a piece of Json text file.
+ * each course has a CRN. subject, course number, course title, section, term, type, instructor,
+ * an int array of grades that has 14 positions, which are A+, A, A-, B+, B, B-, C+, C, C-, D+, D, F, and W
+ * storing the students who get each of those grades,
+ * and the average GPA of the course
+ */
 public class Course {
     public Course(){
 
@@ -10,8 +15,8 @@ public class Course {
     private int Number;
     private String Title;
     private String Section;
-    private String Term;
     private String Type;
+    private String Term;
     private String Instructor;
     private int[] Grades;
     private double Average;
@@ -32,11 +37,11 @@ public class Course {
     public String getSection(){
         return Section;
     }
-    public String getTerm(){
-        return Term;
-    }
     public String getType(){
         return Type;
+    }
+    public String getTerm(){
+        return Term;
     }
     public String getInstructor(){
         return Instructor;
@@ -47,5 +52,4 @@ public class Course {
     public double getAverage(){
         return Average;
     }
-
 }
