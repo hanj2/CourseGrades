@@ -77,4 +77,10 @@ public class CourseTest {
     public void getAverageTest(){
         assertTrue(Math.abs(course.getAverage() - 3.72) <= MAX_ERROR_RANGE);
     }
+
+    //arrayTests
+    @Test
+    public void getCRNArrayTest(){
+        assertEquals("37453",courses[0].getCRN());
+    }
 }
