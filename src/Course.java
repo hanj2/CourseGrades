@@ -7,14 +7,14 @@ public class Course {
     // the variables of Course
     private String CRN;
     private String Subject;
-    private String Number;
+    private int Number;
     private String Title;
     private String Section;
     private String Term;
     private String Type;
     private String Instructor;
-    private String[] Grades;
-    private String Average;
+    private int[] Grades;
+    private double Average;
 
     //the getters, read-only for security reason
     public String getCRN(){
@@ -23,7 +23,7 @@ public class Course {
     public String getSubject(){
         return Subject;
     }
-    public String getNumber(){
+    public int getNumber(){
         return Number;
     }
     public String getTitle(){
@@ -41,10 +41,10 @@ public class Course {
     public String getInstructor(){
         return Instructor;
     }
-    public String[] getGrades(){
+    public int[] getGrades(){
         return Grades;
     }
-    public String getAverage(){
+    public double getAverage(){
         return Average;
     }
 
