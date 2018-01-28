@@ -13,8 +13,7 @@ public class CourseGrade {
     // methods load the provided Json File and parse it.
     public static ArrayList<Course> loadJson(String jsonFile) throws NullPointerException{
         Gson gson = new Gson();
-        ArrayList<Course> coursesOfSemester = new ArrayList<>();
-        coursesOfSemester = gson.fromJson(jsonFile, new TypeToken<List<Course>>(){}.getType());
+        ArrayList<Course> coursesOfSemester = gson.fromJson(jsonFile, new TypeToken<List<Course>>(){}.getType());
         return coursesOfSemester;
     }
 
@@ -38,14 +37,14 @@ public class CourseGrade {
         return coursesOfAllSemesters;
     }
 
-    //filtering methods
-    //filtered by given department.
+    //filtering methods, set a null error message first
+    //filtered by given department, case-insensitively
     public static ArrayList<Course> filteredBySubject(String subject,
                                                       ArrayList<Course> courses) throws NullPointerException{
         ArrayList<Course> filteredCourses = new ArrayList<Course>();
-        for (Course course:courses){
+        for (Course course : courses){
             String subjectOfCourse = course.getSubject();
-            if (subjectOfCourse.equals(subject)){
+            if (subjectOfCourse.equalsIgnoreCase(subject)){
                 filteredCourses.add(course);
             }
         }
@@ -65,7 +64,7 @@ public class CourseGrade {
         return filteredCourses;
     }
 
-    //filtered by the given class number range
+    //filtered by the given class number range, inclusively
     //three parameters: upperBound and LowerBound and course ArrayList
     public static ArrayList<Course> filteredByCourseNumRange(int lowerBound, int upperBound,
                                                              ArrayList<Course> courses) throws NullPointerException{
@@ -89,8 +88,8 @@ public class CourseGrade {
         return sumOfStudents;
     }
 
-    //filtered by range of student number
-    public static ArrayList<Course> filteredByStudentNum(int upperBound, int lowerBound,
+    //filtered by range of student number, inclusively
+    public static ArrayList<Course> filteredByStudentNum(int lowerBound,int upperBound,
                                                          ArrayList<Course> courses) throws NullPointerException{
         ArrayList<Course> filteredCourses = new ArrayList<Course>();
         for (Course course:courses){
