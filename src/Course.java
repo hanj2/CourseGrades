@@ -67,7 +67,6 @@ public class Course {
     }
 
     //Course Object isEqual method
-
     public static boolean isCourseEqual(Course course1, Course course2) throws NullPointerException{
         if (course1.getCRN().equals(course2.getCRN())
                 && course1.getSubject().equals(course2.getSubject())
@@ -82,6 +81,5 @@ public class Course {
             return true;
         }
         return false;
-
     }
 }
