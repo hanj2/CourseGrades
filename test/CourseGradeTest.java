@@ -29,7 +29,7 @@ public class CourseGradeTest {
             isEquals = false;
         }
         for (int i = 0; i < courseArrayList.size(); i++){
-            if(!Course.isCourseEqual(courseArrayList.get(i),coursesInTest.get(i))){
+            if(!Course.areCoursesEqual(courseArrayList.get(i),coursesInTest.get(i))){
                 isEquals = false;
             }
         }
@@ -44,7 +44,7 @@ public class CourseGradeTest {
             isEquals = false;
         }
         for (int i = 0; i < courseArrayList.size(); i++){
-            if(!Course.isCourseEqual(courseArrayList.get(i),coursesInTest.get(i))){
+            if(!Course.areCoursesEqual(courseArrayList.get(i),coursesInTest.get(i))){
                 isEquals = false;
             }
         }
