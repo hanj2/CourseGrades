@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * CourseGrade a class with loading, filtering, and aggregation methods.
+ * a class to turn Json files to java objects Courses.
+ * CourseGrade a class with loading methods to parse JSON files
+ * and filtering methods and aggregation methods to convert Arraylist of Courses
  */
 public class CourseGrade {
     // methods load the provided Json File and parse it.
