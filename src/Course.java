@@ -52,4 +52,36 @@ public class Course {
     public double getAverage(){
         return Average;
     }
+
+    //helper function to see if two Grades arrays are equal
+    public static boolean isGradesArrayEqual(int[] Grades1, int[] Grades2){
+        if (Grades1.length != Grades2.length){
+            return false;
+        }
+        for (int i = 0; i < Grades1.length; i++){
+            if (Grades1[i] != Grades2[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //Course Object isEqual method
+
+    public static boolean isCourseEqual(Course course1, Course course2) throws NullPointerException{
+        if (course1.getCRN().equals(course2.getCRN())
+                && course1.getSubject().equals(course2.getSubject())
+                && course1.getNumber() == course2.getNumber()
+                && course1.getTitle().equals(course2.getTitle())
+                && course1.getSection().equals(course2.getSection())
+                && course1.getTerm().equals(course2.getTerm())
+                && course1.getType().equals(course2.getType())
+                && course1.getInstructor().equals(course2.getInstructor())
+                && isGradesArrayEqual(course1.getGrades(), course2.getGrades())
+                && course1.getAverage() == course2.getAverage()){
+            return true;
+        }
+        return false;
+
+    }
 }

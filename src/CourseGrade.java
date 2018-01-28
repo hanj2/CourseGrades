@@ -1,4 +1,6 @@
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,11 +11,10 @@ import java.util.List;
  */
 public class CourseGrade {
     // methods load the provided Json File and parse it.
-
     public static ArrayList<Course> loadJson(String jsonFile) throws NullPointerException{
         Gson gson = new Gson();
-        Course[] coursesOfSemesterArray = gson.fromJson(jsonFile,Course[].class);
-        ArrayList<Course> coursesOfSemester = new ArrayList<>(Arrays.asList(coursesOfSemesterArray));
+        ArrayList<Course> coursesOfSemester = new ArrayList<>();
+        coursesOfSemester = gson.fromJson(jsonFile, new TypeToken<List<Course>>(){}.getType());
         return coursesOfSemester;
     }
 
@@ -23,6 +24,7 @@ public class CourseGrade {
         ArrayList<Course> coursesOfSemester = loadJson(jsonFile);
         return coursesOfSemester;
     }
+
     // a method Loading all Json from Files into a list of Course array
     // first, get the String list of all json file names
     // get the courses arraylist semester by semester and add them togther in one new list
@@ -33,7 +35,6 @@ public class CourseGrade {
             ArrayList<Course> coursesOfSemester = loadJsonByFileName(jsonFileName);
             coursesOfAllSemesters.addAll(coursesOfSemester);
         }
-
         return coursesOfAllSemesters;
     }
 

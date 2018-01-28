@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CourseTest {
     private static final String COURSE_JSON = " { \"CRN\": 41758, \"Subject\": \"AAS\", \"Number\": 100, \"Title\": \"Intro Asian American Studies\", \"Section\": \"AD1\", \"Type\": \"DIS\", \"Term\": 120138, \"Instructor\": \"Arai, Sayuri\", \"Grades\": [6, 16, 5, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0], \"Average\": 3.72 } ";
-    public static final String COURSES_OF_SUMMER_2013_JSON = Data.getFileContentsAsString("Summer2013.json");
+    private static final String COURSES_OF_SUMMER_2013_JSON = Data.getFileContentsAsString("Summer2013.json");
     private Course course;
     private Course[] courses;
 
@@ -80,7 +80,12 @@ public class CourseTest {
 
     //arrayTests
     @Test
+    public void arrayLengthTest(){
+        assertEquals(186, courses.length);
+    }
+    @Test
     public void getCRNArrayTest(){
         assertEquals("37453",courses[0].getCRN());
+        assertEquals("32255", courses[courses.length - 1].getCRN());
     }
 }
