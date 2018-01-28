@@ -54,7 +54,7 @@ public class Course {
     }
 
     //helper function to see if two Grades arrays are equal
-    public static boolean isGradesArrayEqual(int[] Grades1, int[] Grades2){
+    public static boolean areGradesArraysEqual(int[] Grades1, int[] Grades2){
         if (Grades1.length != Grades2.length){
             return false;
         }
@@ -67,7 +67,7 @@ public class Course {
     }
 
     //Course Object isEqual method
-    public static boolean isCourseEqual(Course course1, Course course2) throws NullPointerException{
+    public static boolean areCoursesEqual(Course course1, Course course2) throws NullPointerException{
         if (course1.getCRN().equals(course2.getCRN())
                 && course1.getSubject().equals(course2.getSubject())
                 && course1.getNumber() == course2.getNumber()
@@ -76,7 +76,7 @@ public class Course {
                 && course1.getTerm().equals(course2.getTerm())
                 && course1.getType().equals(course2.getType())
                 && course1.getInstructor().equals(course2.getInstructor())
-                && isGradesArrayEqual(course1.getGrades(), course2.getGrades())
+                && areGradesArraysEqual(course1.getGrades(), course2.getGrades())
                 && course1.getAverage() == course2.getAverage()){
             return true;
         }
