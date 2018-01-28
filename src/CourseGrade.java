@@ -129,9 +129,6 @@ public class CourseGrade {
         return filteredCourses;
     }
 
-
-
-
     //aggregation methods
     //total number of students who take the collection of courses
     public static int totalNumOfStudents(ArrayList<Course> courses) throws NullPointerException{
@@ -160,7 +157,7 @@ public class CourseGrade {
 
     //students that receives a range of grades, a case-insensitive method
     //create a hashmap to connect grade letters with GPAs
-    public int studentsInGradeRange(String lowerBound, String upperBound,
+    public static int studentsInGradeRange(String lowerBound, String upperBound,
                                     ArrayList<Course> courses) throws NullPointerException{
         HashMap<String, Integer> indexOfGPA = new HashMap<String, Integer>();
         indexOfGPA.put("A+", GRADE_A_PLUS);

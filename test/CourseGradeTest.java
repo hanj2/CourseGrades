@@ -111,7 +111,30 @@ public class CourseGradeTest {
         assertEquals("33477", coursesIntest.get(0).getCRN());
     }
 
-    
+    //aggregation method tests
+    @Test
+    public void totalNumOfStudentsTest(){
+        ArrayList<Course> coursesInTest = new ArrayList<>();
+        coursesInTest.add(courseArrayList.get(0));
+        coursesInTest.add(courseArrayList.get(1));
+        assertEquals(45,CourseGrade.totalNumOfStudents(coursesInTest));
+    }
 
+    @Test
+    public void studentsIngGradeRangeTest(){
+        ArrayList<Course> coursesInTest = new ArrayList<>();
+        coursesInTest.add(courseArrayList.get(0));
+        coursesInTest.add(courseArrayList.get(1));
+        assertEquals(17, CourseGrade.studentsInGradeRange("a-","A+",coursesInTest));
+    }
 
+    public static final double MAX_ERROR_RANGE = 0.001;
+    @Test
+    public void meanOfGradeWeightTest(){
+        ArrayList<Course> coursesInTest = new ArrayList<>();
+        coursesInTest.add(courseArrayList.get(0));
+        coursesInTest.add(courseArrayList.get(1));
+        double expected = 3.257;
+        assertTrue(Math.abs( expected -  CourseGrade.meanOfGradeWeight(coursesInTest)) <= MAX_ERROR_RANGE);
+    }
 }
