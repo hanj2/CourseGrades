@@ -128,7 +128,7 @@ public class CourseGradeTest {
         assertEquals(17, CourseGrade.studentsInGradeRange("a-","A+",coursesInTest));
     }
 
-    public static final double MAX_ERROR_RANGE = 0.001;
+    private static final double MAX_ERROR_RANGE = 0.001;
     @Test
     public void meanOfGradeWeightTest(){
         ArrayList<Course> coursesInTest = new ArrayList<>();
