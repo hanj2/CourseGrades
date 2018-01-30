@@ -83,7 +83,7 @@ public class Course {
 
     //Course Object isEqual method, if term and CRN are both the same
     public static boolean isCourseEqual(Course course1, Course course2) throws NullPointerException{
-        return !course1.getCRN().equals(course2.getCRN()) || !course2.getTerm().equals(course2.getTerm());
+        return course1.getCRN().equals(course2.getCRN()) && course2.getTerm().equals(course2.getTerm());
 
     }
 }
