@@ -138,5 +138,5 @@ public class CourseGradeTest {
         assertTrue(Math.abs( expected -  CourseGrade.meanOfGradeWeight(coursesInTest)) <= MAX_ERROR_RANGE);
     }
 
-    
+
 }
