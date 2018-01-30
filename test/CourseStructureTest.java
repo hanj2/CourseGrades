@@ -10,8 +10,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseGradeTest {
+public class CourseStructureTest {
     private static final String COURSES_OF_SUMMER_2013_JSON = Data.getFileContentsAsString("Summer2013.json");
+    private  static final ArrayList<Course> EMPTY_ARRAYLIST = new ArrayList<>();
     private  ArrayList<Course> courseArrayList;
 
     @Before
@@ -23,7 +24,7 @@ public class CourseGradeTest {
     //loading methods tests
     @Test
     public void loadJsonTest(){
-        ArrayList<Course> coursesInTest = CourseGrade.loadJson(COURSES_OF_SUMMER_2013_JSON);
+        ArrayList<Course> coursesInTest = CourseStructure.loadJson(COURSES_OF_SUMMER_2013_JSON);
         boolean isEquals = true;
         if (courseArrayList.size() != coursesInTest.size()){
             isEquals = false;
@@ -38,7 +39,7 @@ public class CourseGradeTest {
 
     @Test
     public void loadJsonByFileName(){
-        ArrayList<Course> coursesInTest = CourseGrade.loadJsonByFileName("Summer2013.json");
+        ArrayList<Course> coursesInTest = CourseStructure.loadJsonByFileName("Summer2013.json");
         boolean isEquals = true;
         if (courseArrayList.size() != coursesInTest.size()){
             isEquals = false;
@@ -60,7 +61,7 @@ public class CourseGradeTest {
 
     @Test
     public void loadAllJsonFilesTest(){
-        ArrayList<Course> coursesInTest = CourseGrade.loadAllJsonFlies();
+        ArrayList<Course> coursesInTest = CourseStructure.loadAllJsonFlies();
         int allCourses = NUM_OF_COURSES_FA2013 + NUM_OF_COURSES_FA2014 + NUM_OF_COURSES_SP2013
                 + NUM_OF_COURSES_SP2014 + NUM_OF_COURSES_SU2013 + NUM_OF_COURSES_SU2014;
         assertEquals(allCourses, coursesInTest.size());
@@ -70,44 +71,45 @@ public class CourseGradeTest {
     //filtering methods tests
     @Test
     public void filteredBySubjectTest(){
-        assertEquals("30486", CourseGrade.filteredBySubject("THEA", courseArrayList).get(0).getCRN());
+        assertEquals("30486", CourseStructure.filteredBySubject("THEA", courseArrayList).get(0).getCRN());
     }
 
     @Test
     public void filteredByInstructorTest(){
-        assertEquals("37453", CourseGrade.filteredByInstructor("Peter",
+        assertEquals("37453", CourseStructure.filteredByInstructor("Peter",
                 courseArrayList).get(0).getCRN());
-        assertEquals("37453", CourseGrade.filteredByInstructor("peter",
+        assertEquals("37453", CourseStructure.filteredByInstructor("peter",
                 courseArrayList).get(0).getCRN());
     }
 
     @Test
     public void filteredByCourseNumRange(){
-        assertEquals("37453", CourseGrade.filteredByCourseNumRange(200,
+        assertEquals("37453", CourseStructure.filteredByCourseNumRange(200,
                 400, courseArrayList).get(0).getCRN());
     }
 
     @Test
     public void numberOfStudentsTest(){
-        assertEquals(22, CourseGrade.numberOfStudents(courseArrayList.get(0)));
+        assertEquals(22, CourseStructure.numberOfStudents(courseArrayList.get(0)));
     }
 
     @Test
     public void filteredByStudentNumTest(){
-        assertEquals("37453", CourseGrade.filteredByStudentNum(CourseGrade.numberOfStudents(courseArrayList.get(0)),
+        assertEquals("37453",
+                CourseStructure.filteredByStudentNum(CourseStructure.numberOfStudents(courseArrayList.get(0)),
                 50, courseArrayList).get(0).getCRN());
     }
 
     @Test
     public void filteredByTermTest(){
-        ArrayList<Course> allCourses = CourseGrade.loadAllJsonFlies();
-        assertEquals("37453", CourseGrade.filteredByTerm("120135", allCourses).get(0).getCRN());
+        ArrayList<Course> allCourses = CourseStructure.loadAllJsonFlies();
+        assertEquals("37453", CourseStructure.filteredByTerm("120135", allCourses).get(0).getCRN());
     }
 
     @Test
     public void filteredByCourseAndInstructorTest(){
-        ArrayList<Course> coursesIntest = CourseGrade.filteredByCourseAndInstructor("math", 241,
-                "Lakeland", courseArrayList);
+        ArrayList<Course> coursesIntest = CourseStructure.filteredByCourseAndInstructor("math",
+                241, "Lakeland", courseArrayList);
         assertEquals("33477", coursesIntest.get(0).getCRN());
     }
 
@@ -117,7 +119,7 @@ public class CourseGradeTest {
         ArrayList<Course> coursesInTest = new ArrayList<>();
         coursesInTest.add(courseArrayList.get(0));
         coursesInTest.add(courseArrayList.get(1));
-        assertEquals(45,CourseGrade.totalNumOfStudents(coursesInTest));
+        assertEquals(45,CourseStructure.totalNumOfStudents(coursesInTest));
     }
 
     @Test
@@ -125,7 +127,7 @@ public class CourseGradeTest {
         ArrayList<Course> coursesInTest = new ArrayList<>();
         coursesInTest.add(courseArrayList.get(0));
         coursesInTest.add(courseArrayList.get(1));
-        assertEquals(17, CourseGrade.studentsInGradeRange("a-","A+",coursesInTest));
+        assertEquals(17, CourseStructure.studentsInGradeRange("a-","A+",coursesInTest));
     }
 
     private static final double MAX_ERROR_RANGE = 0.001;
@@ -135,8 +137,45 @@ public class CourseGradeTest {
         coursesInTest.add(courseArrayList.get(0));
         coursesInTest.add(courseArrayList.get(1));
         double expected = 3.257;
-        assertTrue(Math.abs( expected -  CourseGrade.meanOfGradeWeight(coursesInTest)) <= MAX_ERROR_RANGE);
+        assertTrue(Math.abs(expected -  CourseStructure.meanOfGradeWeight(coursesInTest)) <= MAX_ERROR_RANGE);
     }
 
+    //Exception tests
+    @Test
+    public void loadJsonExceptionTest(){
+        try {
+            CourseStructure.loadJson(null);
+        } catch (NullPointerException e){
+            assertEquals(ErrorMessage.NULL_JSON_FILE, e.getMessage());
+        }
+    }
+    @Test
+    public void loadJsonByFileNameExceptionTest(){
+        try {
+            CourseStructure.loadJsonByFileName(null);
+        } catch (NullPointerException e){
+            assertEquals(e.getMessage(), ErrorMessage.NULL_JSON_FILE_NAME);
+        }
+    }
+    @Test
+    public void filteredBySubjectExceptionTest(){
+        try {
+             CourseStructure.filteredBySubject(null, EMPTY_ARRAYLIST);
+        } catch (IllegalArgumentException e){
+            assertEquals(ErrorMessage.EMPTY_COURSE_ARRAYLIST, e.getMessage());
+        } catch (NullPointerException e) {
+            assertEquals(ErrorMessage.NULL_SUBJECT, e.getMessage());
+        }
+        try {
+            CourseStructure.filteredBySubject("MATH",null);
+        }catch (IllegalArgumentException e){
+            assertEquals(ErrorMessage.NULL_COURSE, e.getMessage());
+        }
+        try {
+            CourseStructure.filteredBySubject("fakeSubject", courseArrayList);
+        }catch (Error e){
+            assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
+        }
+    }
 
 }

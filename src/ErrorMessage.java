@@ -13,4 +13,5 @@ public class ErrorMessage {
     public static final String INVALID_DIVIDER = "THE DIVISOR CAN'T BE ZERO!";
     public static final String INVALID_BOUNDS = "THE lOWERBOUND IS HIGHER THAN THE UPPERBOUND!";
     public static final String NULL_TERM = "THE TERM INPUT IS NULL!";
+    public static final String NOT_FOUND = "COURSE NOT FOUND!";
 }

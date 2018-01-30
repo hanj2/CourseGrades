@@ -12,12 +12,12 @@ import java.util.List;
  * filtering methods to filter Array lists of Courses
  * and aggregation methods to aggregate courses in some similar cases
  */
-public class CourseGrade {
+public class CourseStructure {
     // method that load the provided Json File and parse it into an array list
     // parameters can't be null, so throw an IllegalArgumentException
-    public static ArrayList<Course> loadJson(String jsonFile) throws IllegalArgumentException{
+    public static ArrayList<Course> loadJson(String jsonFile) throws NullPointerException{
         if (jsonFile == null){
-            throw new IllegalArgumentException(ErrorMessage.NULL_JSON_FILE);
+            throw new NullPointerException(ErrorMessage.NULL_JSON_FILE);
         }
         Gson gson = new Gson();
         ArrayList<Course> coursesOfSemester = gson.fromJson(jsonFile, new TypeToken<List<Course>>(){}.getType());
@@ -25,9 +25,9 @@ public class CourseGrade {
     }
 
     // method that parses the Json File by its file name
-    public static ArrayList<Course> loadJsonByFileName(String jsonFileName) throws IllegalArgumentException{
+    public static ArrayList<Course> loadJsonByFileName(String jsonFileName) throws NullPointerException{
         if (jsonFileName == null){
-            throw new IllegalArgumentException(ErrorMessage.NULL_JSON_FILE_NAME);
+            throw new NullPointerException(ErrorMessage.NULL_JSON_FILE_NAME);
         }
         String jsonFile = Data.getFileContentsAsString(jsonFileName);
         ArrayList<Course> coursesOfSemester = loadJson(jsonFile);
@@ -49,10 +49,10 @@ public class CourseGrade {
 
     //filtering methods, set a null error message first
     //filtered by given department, case-insensitively
-    public static ArrayList<Course> filteredBySubject(String subject,
-                                                      ArrayList<Course> courses) throws IllegalArgumentException{
+    public static ArrayList<Course> filteredBySubject
+    (String subject, ArrayList<Course> courses) throws NullPointerException, IllegalArgumentException{
         if (subject == null){
-            throw new IllegalArgumentException(ErrorMessage.NULL_SUBJECT);
+            throw new NullPointerException(ErrorMessage.NULL_SUBJECT);
         }
         if (courses == null){
             throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
@@ -91,6 +91,9 @@ public class CourseGrade {
                 filteredCourses.add(course);
             }
         }
+        if (filteredCourses.size() == 0){
+            throw new Error(ErrorMessage.NOT_FOUND);
+        }
         return filteredCourses;
     }
 
@@ -114,6 +117,9 @@ public class CourseGrade {
             if (courseNum >= lowerBound && courseNum <= upperBound){
                 filteredCourses.add(course);
             }
+        }
+        if (filteredCourses.size() == 0){
+            throw new Error(ErrorMessage.NOT_FOUND);
         }
         return filteredCourses;
     }
@@ -148,6 +154,9 @@ public class CourseGrade {
                 filteredCourses.add(course);
             }
         }
+        if (filteredCourses.size() == 0){
+            throw new Error(ErrorMessage.NOT_FOUND);
+        }
         return filteredCourses;
     }
 
@@ -170,6 +179,9 @@ public class CourseGrade {
             if (termOfCourse.equalsIgnoreCase(term)){
                 filteredCourses.add(course);
             }
+        }
+        if (filteredCourses.size() == 0){
+            throw new Error(ErrorMessage.NOT_FOUND);
         }
         return filteredCourses;
     }
@@ -197,6 +209,9 @@ public class CourseGrade {
             if (course.getNumber() == courseNumber){
                 filteredCourses.add(course);
             }
+        }
+        if (filteredCourses.size() == 0){
+            throw new Error(ErrorMessage.NOT_FOUND);
         }
         return filteredCourses;
     }
