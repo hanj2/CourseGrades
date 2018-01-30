@@ -255,10 +255,11 @@ public class CourseGrade {
         lowerBound = lowerBound.toUpperCase();
         upperBound = upperBound.toUpperCase();
 
-        if (!indexOfGPA.containsKey(lowerBound)||indexOfGPA.containsKey(upperBound) ){
+        if (!indexOfGPA.containsKey(lowerBound)||!indexOfGPA.containsKey(upperBound) ){
             throw new IllegalArgumentException(ErrorMessage.INVALID_GRADE);
         }
-        if (indexOfGPA.get(lowerBound) > indexOfGPA.get(upperBound)){
+        // the index of the lower bound of grade should be larger than that of the higher bound of grade
+        if (indexOfGPA.get(lowerBound) < indexOfGPA.get(upperBound)){
             throw new IllegalArgumentException(ErrorMessage.INVALID_BOUNDS);
         }
         if (courses == null){
