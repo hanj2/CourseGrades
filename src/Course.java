@@ -12,60 +12,60 @@ public class Course {
     public Course(String newCRN, String newSubject, int newNumber, String newTitle, String newSection,
                   String newType, String newTerm, String newInstructor, int[] newGrades, double newAverage){
         this.CRN = newCRN;
-        this.subject = newSubject;
-        this.number = newNumber;
-        this.title = newTitle;
-        this.section = newSection;
-        this.type = newType;
-        this.term = newTerm;
-        this.instructor = newInstructor;
-        this.average = newAverage;
-        this.grades = new int[newGrades.length];
-        System.arraycopy(newGrades, 0, grades, 0, grades.length);
+        this.Subject = newSubject;
+        this.Number = newNumber;
+        this.Title = newTitle;
+        this.Section = newSection;
+        this.Type = newType;
+        this.Term = newTerm;
+        this.Instructor = newInstructor;
+        this.Average = newAverage;
+        this.Grades = new int[newGrades.length];
+        System.arraycopy(newGrades, 0, Grades, 0, Grades.length);
     }
 
     // the variables of Course
     private String CRN;
-    private String subject;
-    private int number;
-    private String title;
-    private String section;
-    private String type;
-    private String term;
-    private String instructor;
-    private int[] grades;
-    private double average;
+    private String Subject;
+    private int Number;
+    private String Title;
+    private String Section;
+    private String Type;
+    private String Term;
+    private String Instructor;
+    private int[] Grades;
+    private double Average;
 
     //the getters, read-only for security reason
     public String getCRN(){
         return CRN;
     }
     public String getSubject(){
-        return subject;
+        return Subject;
     }
     public int getNumber(){
-        return number;
+        return Number;
     }
     public String getTitle(){
-        return title;
+        return Title;
     }
     public String getSection(){
-        return section;
+        return Section;
     }
     public String getType(){
-        return type;
+        return Type;
     }
     public String getTerm(){
-        return term;
+        return Term;
     }
     public String getInstructor(){
-        return instructor;
+        return Instructor;
     }
     public int[] getGrades(){
-        return grades;
+        return Grades;
     }
     public double getAverage(){
-        return average;
+        return Average;
     }
 
     //helper function to see if two Grades arrays are equal
@@ -81,17 +81,9 @@ public class Course {
         return true;
     }
 
-    //Course Object isEqual method
-    public static boolean areCoursesEqual(Course course1, Course course2) throws NullPointerException{
-        return !course1.getCRN().equals(course2.getCRN())
-                || !course1.getSubject().equals(course2.getSubject())
-                || course1.getNumber() != course2.getNumber()
-                || !course1.getTitle().equals(course2.getTitle())
-                || !course1.getSection().equals(course2.getSection())
-                || !course1.getTerm().equals(course2.getTerm())
-                || !course1.getType().equals(course2.getType())
-                || !course1.getInstructor().equals(course2.getInstructor())
-                || !areGradesArraysEqual(course1.getGrades(), course2.getGrades())
-                || course1.getAverage() != course2.getAverage();
+    //Course Object isEqual method, if term and CRN are both the same
+    public static boolean isCourseEqual(Course course1, Course course2) throws NullPointerException{
+        return !course1.getCRN().equals(course2.getCRN()) || !course2.getTerm().equals(course2.getTerm());
+
     }
 }

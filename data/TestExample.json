@@ -1,0 +1,9 @@
+[
+{ "CRN": 34304, "Subject": "STAT", "Number": 440, "Title": "Statistical Data Management", "Section": "N1G", "Type": "LEC", "Term": 120135, "Instructor": "Unger, David", "Grades": [2, 22, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], "Average": 3.89 },
+{ "CRN": 37298, "Subject": "STAT", "Number": 448, "Title": "Advanced Data Analysis", "Section": "S1", "Type": "LCD", "Term": 120135, "Instructor": "Glosemeyer, Darren W", "Grades": [0, 13, 8, 4, 3, 2, 2, 0, 0, 0, 0, 0, 0, 0], "Average": 3.55 },
+{ "CRN": 30463, "Subject": "TAM", "Number": 212, "Title": "Introductory Dynamics", "Section": "C", "Type": "LEC", "Term": 120135, "Instructor": "Anderson, Aaron T", "Grades": [1, 8, 7, 9, 7, 3, 1, 0, 1, 2, 0, 0, 1, 0], "Average": 3.18 },
+{ "CRN": 30464, "Subject": "TAM", "Number": 251, "Title": "Introductory Solid Mechanics", "Section": "A", "Type": "LCD", "Term": 120135, "Instructor": "Saharan, Ankit", "Grades": [4, 4, 2, 3, 2, 1, 2, 4, 0, 0, 2, 0, 0, 0], "Average": 3.03 },
+{ "CRN": 30468, "Subject": "TAM", "Number": 335, "Title": "Introductory Fluid Mechanics", "Section": "AL1", "Type": "LEC", "Term": 120135, "Instructor": "Keane, Richard D", "Grades": [2, 6, 4, 5, 4, 3, 3, 5, 0, 0, 0, 0, 1, 0], "Average": 3.04 },
+{ "CRN": 30486, "Subject": "THEA", "Number": 101, "Title": "Introduction to Theatre Arts", "Section": "A", "Type": "ONL", "Term": 120135, "Instructor": "Morrissette, Jason W", "Grades": [15, 17, 4, 1, 2, 0, 1, 2, 0, 0, 0, 1, 1, 0], "Average": 3.61 },
+{ "CRN": 32255, "Subject": "THEA", "Number": 101, "Title": "Introduction to Theatre Arts", "Section": "B", "Type": "ONL", "Term": 120135, "Instructor": "Morrissette, Jason W", "Grades": [15, 14, 0, 2, 2, 1, 0, 4, 1, 0, 1, 0, 1, 0], "Average": 3.46 }
+]
