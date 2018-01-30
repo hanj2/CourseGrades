@@ -1,13 +1,7 @@
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.io.StringReader;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CourseTest {
     private static final String COURSE_JSON = " { \"CRN\": 41758, \"Subject\": \"AAS\", \"Number\": 100, \"Title\": \"Intro Asian American Studies\", \"Section\": \"AD1\", \"Type\": \"DIS\", \"Term\": 120138, \"Instructor\": \"Arai, Sayuri\", \"Grades\": [6, 16, 5, 3, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0], \"Average\": 3.72 } ";

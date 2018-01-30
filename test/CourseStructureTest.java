@@ -1,12 +1,8 @@
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.io.StringReader;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
