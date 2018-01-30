@@ -1,6 +1,5 @@
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,8 +19,7 @@ public class CourseStructure {
             throw new NullPointerException(ErrorMessage.NULL_JSON_FILE);
         }
         Gson gson = new Gson();
-        ArrayList<Course> coursesOfSemester = gson.fromJson(jsonFile, new TypeToken<List<Course>>(){}.getType());
-        return coursesOfSemester;
+        return gson.fromJson(jsonFile, new TypeToken<List<Course>>(){}.getType());
     }
 
     // method that parses the Json File by its file name
@@ -30,13 +28,12 @@ public class CourseStructure {
             throw new NullPointerException(ErrorMessage.NULL_JSON_FILE_NAME);
         }
         String jsonFile = Data.getFileContentsAsString(jsonFileName);
-        ArrayList<Course> coursesOfSemester = loadJson(jsonFile);
-        return coursesOfSemester;
+        return loadJson(jsonFile);
     }
 
     // a method Loading all Json from Files into a list of Course array
     // first, get the String list of all json file names
-    // get the courses arraylist semester by semester and add them togther in one new list
+    // get the courses arraylist semester by semester and add them together in one new list
     public static ArrayList<Course> loadAllJsonFlies(){
         List<String> jsonFileNames = Data.getJsonFilesAsList();
         ArrayList<Course> coursesOfAllSemesters = new ArrayList<>();
@@ -74,7 +71,6 @@ public class CourseStructure {
     //filtered by the given string in the instructor's name case-insensitively
     public static ArrayList<Course> filteredByInstructor(String stringInName, ArrayList<Course> courses)
             throws IllegalArgumentException, NullPointerException{
-
         if (stringInName == null){
             throw new NullPointerException(ErrorMessage.NULL_INSTRUCTOR_NAME);
         }
@@ -132,8 +128,8 @@ public class CourseStructure {
         }
         int[] grades = course.getGrades();
         int sumOfStudents = 0;
-        for (int i = 0; i < grades.length; i++){
-            sumOfStudents += grades[i];
+        for (int grade : grades){
+            sumOfStudents += grade;
         }
         return sumOfStudents;
     }
@@ -165,8 +161,8 @@ public class CourseStructure {
     }
 
     //filtered by term/semester, case in-sensitively
-    public static ArrayList<Course> filteredByTerm (String term,
-                                                    ArrayList<Course> courses) throws IllegalArgumentException{
+    public static ArrayList<Course> filteredByTerm (String term, ArrayList<Course> courses)
+            throws NullPointerException, IllegalArgumentException, Error{
         if (term == null){
             throw new IllegalArgumentException(ErrorMessage.NULL_TERM);
         }
@@ -193,12 +189,13 @@ public class CourseStructure {
     //filtered by subject, course number and substring of instructor's name
     //first filtered by subject and instructor, then by course number
     public static ArrayList<Course> filteredByCourseAndInstructor (String subject, int courseNumber,
-     String nameOfInstructor, ArrayList<Course> courses) throws IllegalArgumentException{
+                                                                   String nameOfInstructor, ArrayList<Course> courses)
+            throws NullPointerException, IllegalArgumentException, Error{
         if (subject == null){
-            throw new IllegalArgumentException(ErrorMessage.INVALID_BOUNDS);
+            throw new NullPointerException(ErrorMessage.INVALID_BOUNDS);
         }
         if (nameOfInstructor == null){
-            throw new IllegalArgumentException(ErrorMessage.NULL_INSTRUCTOR_NAME);
+            throw new NullPointerException(ErrorMessage.NULL_INSTRUCTOR_NAME);
         }
         if (courses == null){
             throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
@@ -304,7 +301,7 @@ public class CourseStructure {
      * weight = (sum of student number * avg GPA of each course)/total student number
      * throw an exception if the number of total students is zero
      */
-    public static double meanOfGradeWeight(ArrayList<Course> courses) throws IllegalArgumentException{
+    public static double meanOfGradeWeight(ArrayList<Course> courses) throws IllegalArgumentException, Error{
         if (courses == null){
             throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
         }
@@ -318,7 +315,7 @@ public class CourseStructure {
             sumOfGrades += numberOfStudents(course) * course.getAverage();
         }
         if (studentsOfAllCourses == 0){
-            throw new IllegalArgumentException(ErrorMessage.INVALID_DIVIDER);
+            throw new Error(ErrorMessage.INVALID_DIVIDER);
         }
         return sumOfGrades / studentsOfAllCourses;
     }

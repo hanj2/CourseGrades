@@ -179,11 +179,39 @@ public class CourseStructureTest {
     }
 
     @Test
+    public void filteredByInstructorErrorTest(){
+        try {
+            CourseStructure.filteredByInstructor(null, EMPTY_ARRAYLIST);
+        } catch (IllegalArgumentException e){
+            assertEquals(ErrorMessage.EMPTY_COURSE_ARRAYLIST, e.getMessage());
+        } catch (NullPointerException e) {
+            assertEquals(ErrorMessage.NULL_INSTRUCTOR_NAME, e.getMessage());
+        }
+        try {
+            CourseStructure.filteredByInstructor("peter",null);
+        } catch (IllegalArgumentException e){
+            assertEquals(ErrorMessage.NULL_COURSE, e.getMessage());
+        }
+        try {
+            CourseStructure.filteredByInstructor("fakeInstructor", courseArrayList);
+        }catch (Error e){
+            assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @Test
     public void filteredByCourseNumberRangeErrorTest(){
         try {
-            CourseStructure.filteredByCourseNumRange(200, 100, courseArrayList);
-        } catch (Error e){
+            CourseStructure.filteredByCourseNumRange(200, 100, EMPTY_ARRAYLIST);
+        }catch (Error e){
             assertEquals( ErrorMessage.INVALID_BOUNDS, e.getMessage());
+        }catch (IllegalArgumentException e){
+            assertEquals(ErrorMessage.EMPTY_COURSE_ARRAYLIST, e.getMessage());
+        }
+        try {
+            CourseStructure.filteredByCourseNumRange(800,900, courseArrayList);
+        }catch (Error e){
+            assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
         }
     }
 
@@ -200,5 +228,4 @@ public class CourseStructureTest {
             assertEquals(ErrorMessage.INVALID_BOUNDS, e.getMessage());
         }
     }
-
 }
