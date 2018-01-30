@@ -1,12 +1,8 @@
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
-import java.io.StringReader;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +26,7 @@ public class CourseStructureTest {
             isEquals = false;
         }
         for (int i = 0; i < courseArrayList.size(); i++){
-            if(!Course.areCoursesEqual(courseArrayList.get(i),coursesInTest.get(i))){
+            if(Course.areCoursesEqual(courseArrayList.get(i),coursesInTest.get(i))){
                 isEquals = false;
             }
         }
@@ -45,7 +41,7 @@ public class CourseStructureTest {
             isEquals = false;
         }
         for (int i = 0; i < courseArrayList.size(); i++){
-            if(!Course.areCoursesEqual(courseArrayList.get(i),coursesInTest.get(i))){
+            if(Course.areCoursesEqual(courseArrayList.get(i),coursesInTest.get(i))){
                 isEquals = false;
             }
         }
@@ -136,8 +132,7 @@ public class CourseStructureTest {
         ArrayList<Course> coursesInTest = new ArrayList<>();
         coursesInTest.add(courseArrayList.get(0));
         coursesInTest.add(courseArrayList.get(1));
-        double expected = 3.257;
-        assertTrue(Math.abs(expected -  CourseStructure.meanOfGradeWeight(coursesInTest)) <= MAX_ERROR_RANGE);
+        assertEquals(3.257, CourseStructure.meanOfGradeWeight(coursesInTest), MAX_ERROR_RANGE);
     }
 
     //Exception tests
