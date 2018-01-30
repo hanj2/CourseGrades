@@ -16,6 +16,9 @@ public class CourseGrade {
     // method that load the provided Json File and parse it into an array list
     // parameters can't be null, so throw an IllegalArgumentException
     public static ArrayList<Course> loadJson(String jsonFile) throws IllegalArgumentException{
+        if (jsonFile == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_JSON_FILE);
+        }
         Gson gson = new Gson();
         ArrayList<Course> coursesOfSemester = gson.fromJson(jsonFile, new TypeToken<List<Course>>(){}.getType());
         return coursesOfSemester;
@@ -23,6 +26,9 @@ public class CourseGrade {
 
     // method that parses the Json File by its file name
     public static ArrayList<Course> loadJsonByFileName(String jsonFileName) throws IllegalArgumentException{
+        if (jsonFileName == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_JSON_FILE_NAME);
+        }
         String jsonFile = Data.getFileContentsAsString(jsonFileName);
         ArrayList<Course> coursesOfSemester = loadJson(jsonFile);
         return coursesOfSemester;
@@ -45,6 +51,16 @@ public class CourseGrade {
     //filtered by given department, case-insensitively
     public static ArrayList<Course> filteredBySubject(String subject,
                                                       ArrayList<Course> courses) throws IllegalArgumentException{
+        if (subject == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_SUBJECT);
+        }
+        if (courses == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+        }
+        if (courses.size() == 0){
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_COURSE_ARRAYLIST);
+        }
+
         ArrayList<Course> filteredCourses = new ArrayList<>();
         for (Course course : courses){
             String subjectOfCourse = course.getSubject();
@@ -58,6 +74,16 @@ public class CourseGrade {
     //filtered by the given string in the instructor's name case-insensitively
     public static ArrayList<Course> filteredByInstructor(String stringInName,
                                                          ArrayList<Course> courses) throws IllegalArgumentException{
+        if (stringInName == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_INSTRUCTOR_NAME);
+        }
+        if (courses == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+        }
+        if (courses.size() == 0){
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_COURSE_ARRAYLIST);
+        }
+
         ArrayList<Course> filteredCourses = new ArrayList<>();
         for (Course course:courses){
             String nameOfInstructor = course.getInstructor().toLowerCase();
@@ -72,6 +98,16 @@ public class CourseGrade {
     //three parameters: upperBound and LowerBound and course ArrayList
     public static ArrayList<Course> filteredByCourseNumRange(int lowerBound, int upperBound,
                                                              ArrayList<Course> courses) throws IllegalArgumentException{
+        if (lowerBound > upperBound){
+            throw new IllegalArgumentException(ErrorMessage.INVALID_BOUNDS);
+        }
+        if (courses == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+        }
+        if (courses.size() == 0){
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_COURSE_ARRAYLIST);
+        }
+
         ArrayList<Course> filteredCourses = new ArrayList<>();
         for (Course course:courses){
             int courseNum = course.getNumber();
@@ -95,6 +131,16 @@ public class CourseGrade {
     //filtered by range of student number, inclusively
     public static ArrayList<Course> filteredByStudentNum(int lowerBound,int upperBound,
                                                          ArrayList<Course> courses) throws IllegalArgumentException{
+        if (lowerBound > upperBound){
+            throw new IllegalArgumentException(ErrorMessage.INVALID_BOUNDS);
+        }
+        if (courses == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+        }
+        if (courses.size() == 0){
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_COURSE_ARRAYLIST);
+        }
+
         ArrayList<Course> filteredCourses = new ArrayList<>();
         for (Course course:courses){
             int studentNum = numberOfStudents(course);
@@ -108,6 +154,16 @@ public class CourseGrade {
     //filtered by term/semester, case in-sensitively
     public static ArrayList<Course> filteredByTerm (String term,
                                                     ArrayList<Course> courses) throws IllegalArgumentException{
+        if (term == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_TERM);
+        }
+        if (courses == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+        }
+        if (courses.size() == 0){
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_COURSE_ARRAYLIST);
+        }
+
         ArrayList<Course> filteredCourses = new ArrayList<>();
         for (Course course:courses){
             String termOfCourse = course.getTerm();
@@ -120,11 +176,21 @@ public class CourseGrade {
 
     //filtered by subject, course number and substring of instructor's name
     //first filtered by subject and instructor, then by course number
-    public static ArrayList<Course> filteredByCourseAndInstructor(String subject, int courseNumber,
-                                                                  String nameOfInstructor, ArrayList<Course> courses) throws NullPointerException{
-        if(courses == null){
-            throw new NullPointerException("NULL INPUT!");
+    public static ArrayList<Course> filteredByCourseAndInstructor (String subject, int courseNumber,
+     String nameOfInstructor, ArrayList<Course> courses) throws IllegalArgumentException{
+        if (subject == null){
+            throw new IllegalArgumentException(ErrorMessage.INVALID_BOUNDS);
         }
+        if (nameOfInstructor == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_INSTRUCTOR_NAME);
+        }
+        if (courses == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+        }
+        if (courses.size() == 0){
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_COURSE_ARRAYLIST);
+        }
+
         courses = filteredByInstructor(nameOfInstructor, filteredBySubject(subject,courses));
         ArrayList<Course> filteredCourses = new ArrayList<>();
         for (Course course : courses){
@@ -138,6 +204,12 @@ public class CourseGrade {
     //aggregation methods
     //total number of students who take the collection of courses
     public static int totalNumOfStudents(ArrayList<Course> courses) throws IllegalArgumentException{
+        if (courses == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+        }
+        if (courses.size() == 0){
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_COURSE_ARRAYLIST);
+        }
         int totalNumOfStudents = 0;
         for (Course course:courses){
             totalNumOfStudents += numberOfStudents(course);
@@ -180,9 +252,24 @@ public class CourseGrade {
         indexOfGPA.put("D-", GRADE_D_MINUS);
         indexOfGPA.put("F",GRADE_F);
         indexOfGPA.put("W",GRADE_W);
+        lowerBound = lowerBound.toUpperCase();
+        upperBound = upperBound.toUpperCase();
 
-        int gradeLowerBound = indexOfGPA.get(lowerBound.toUpperCase());
-        int gradeUpperBound = indexOfGPA.get(upperBound.toUpperCase());
+        if (!indexOfGPA.containsKey(lowerBound)||indexOfGPA.containsKey(upperBound) ){
+            throw new IllegalArgumentException(ErrorMessage.INVALID_GRADE);
+        }
+        if (indexOfGPA.get(lowerBound) > indexOfGPA.get(upperBound)){
+            throw new IllegalArgumentException(ErrorMessage.INVALID_BOUNDS);
+        }
+        if (courses == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+        }
+        if (courses.size() == 0){
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_COURSE_ARRAYLIST);
+        }
+
+        int gradeLowerBound = indexOfGPA.get(lowerBound);
+        int gradeUpperBound = indexOfGPA.get(upperBound);
         int studentsInGradeRange = 0;
         for (Course course:courses){
             int[] grades = course.getGrades();
@@ -193,12 +280,17 @@ public class CourseGrade {
         return studentsInGradeRange;
     }
 
-    private static final String ERROR_OF_DIVIDER_AS_ZERO = "THE DIVISOR CAN'T BE ZERO!";
     /* a method calculating the arithmetic mean of the gpa averages weighted by the course enrollment
      * weight = (sum of student number * avg GPA of each course)/total student number
      * throw an exception if the number of total students is zero
      */
     public static double meanOfGradeWeight(ArrayList<Course> courses) throws IllegalArgumentException{
+        if (courses == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+        }
+        if (courses.size() == 0){
+            throw new IllegalArgumentException(ErrorMessage.EMPTY_COURSE_ARRAYLIST);
+        }
         double studentsOfAllCourses = 0;
         double sumOfGrades = 0;
         for (Course course:courses){
@@ -206,11 +298,7 @@ public class CourseGrade {
             sumOfGrades += numberOfStudents(course) * course.getAverage();
         }
         if (studentsOfAllCourses == 0){
-            try {
-                throw new Exception(ERROR_OF_DIVIDER_AS_ZERO);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DIVIDER);
         }
         return sumOfGrades / studentsOfAllCourses;
     }
