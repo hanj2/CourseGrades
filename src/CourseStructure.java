@@ -72,10 +72,11 @@ public class CourseStructure {
     }
 
     //filtered by the given string in the instructor's name case-insensitively
-    public static ArrayList<Course> filteredByInstructor(String stringInName,
-                                                         ArrayList<Course> courses) throws IllegalArgumentException{
+    public static ArrayList<Course> filteredByInstructor(String stringInName, ArrayList<Course> courses)
+            throws IllegalArgumentException, NullPointerException{
+
         if (stringInName == null){
-            throw new IllegalArgumentException(ErrorMessage.NULL_INSTRUCTOR_NAME);
+            throw new NullPointerException(ErrorMessage.NULL_INSTRUCTOR_NAME);
         }
         if (courses == null){
             throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
@@ -99,13 +100,13 @@ public class CourseStructure {
 
     //filtered by the given class number range, inclusively
     //three parameters: upperBound and LowerBound and course ArrayList
-    public static ArrayList<Course> filteredByCourseNumRange(int lowerBound, int upperBound,
-                                                             ArrayList<Course> courses) throws IllegalArgumentException{
+    public static ArrayList<Course> filteredByCourseNumRange(int lowerBound, int upperBound, ArrayList<Course> courses)
+            throws Error, NullPointerException, IllegalArgumentException{
         if (lowerBound > upperBound){
-            throw new IllegalArgumentException(ErrorMessage.INVALID_BOUNDS);
+            throw new Error(ErrorMessage.INVALID_BOUNDS);
         }
         if (courses == null){
-            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+            throw new NullPointerException(ErrorMessage.NULL_COURSE);
         }
         if (courses.size() == 0){
             throw new IllegalArgumentException(ErrorMessage.EMPTY_COURSE_ARRAYLIST);
@@ -126,6 +127,9 @@ public class CourseStructure {
 
     //a helper function that calculates the number of students of a course
     public static int numberOfStudents(Course course) throws IllegalArgumentException{
+        if (course == null){
+            throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
+        }
         int[] grades = course.getGrades();
         int sumOfStudents = 0;
         for (int i = 0; i < grades.length; i++){
@@ -135,10 +139,10 @@ public class CourseStructure {
     }
 
     //filtered by range of student number, inclusively
-    public static ArrayList<Course> filteredByStudentNum(int lowerBound,int upperBound,
-                                                         ArrayList<Course> courses) throws IllegalArgumentException{
+    public static ArrayList<Course> filteredByStudentNum(int lowerBound, int upperBound, ArrayList<Course> courses)
+            throws IllegalArgumentException, Error{
         if (lowerBound > upperBound){
-            throw new IllegalArgumentException(ErrorMessage.INVALID_BOUNDS);
+            throw new Error(ErrorMessage.INVALID_BOUNDS);
         }
         if (courses == null){
             throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
@@ -250,8 +254,8 @@ public class CourseStructure {
 
     //students that receives a range of grades, a case-insensitive method
     //create a hashmap to connect grade letters with GPAs
-    public static int studentsInGradeRange(String lowerBound, String upperBound,
-                                    ArrayList<Course> courses) throws IllegalArgumentException{
+    public static int studentsInGradeRange(String lowerBound, String upperBound, ArrayList<Course> courses)
+            throws IndexOutOfBoundsException, Error, IllegalArgumentException{
         HashMap<String, Integer> indexOfGPA = new HashMap<>();
         indexOfGPA.put("A+", GRADE_A_PLUS);
         indexOfGPA.put("A", GRADE_A);
@@ -271,11 +275,11 @@ public class CourseStructure {
         upperBound = upperBound.toUpperCase();
 
         if (!indexOfGPA.containsKey(lowerBound)||!indexOfGPA.containsKey(upperBound) ){
-            throw new IllegalArgumentException(ErrorMessage.INVALID_GRADE);
+            throw new IndexOutOfBoundsException(ErrorMessage.INVALID_GRADE);
         }
         // the index of the lower bound of grade should be larger than that of the higher bound of grade
         if (indexOfGPA.get(lowerBound) < indexOfGPA.get(upperBound)){
-            throw new IllegalArgumentException(ErrorMessage.INVALID_BOUNDS);
+            throw new Error(ErrorMessage.INVALID_BOUNDS);
         }
         if (courses == null){
             throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);

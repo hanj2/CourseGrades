@@ -142,7 +142,7 @@ public class CourseStructureTest {
 
     //Exception tests
     @Test
-    public void loadJsonExceptionTest(){
+    public void loadJsonErrorTest(){
         try {
             CourseStructure.loadJson(null);
         } catch (NullPointerException e){
@@ -150,7 +150,7 @@ public class CourseStructureTest {
         }
     }
     @Test
-    public void loadJsonByFileNameExceptionTest(){
+    public void loadJsonByFileNameErrorTest(){
         try {
             CourseStructure.loadJsonByFileName(null);
         } catch (NullPointerException e){
@@ -158,7 +158,7 @@ public class CourseStructureTest {
         }
     }
     @Test
-    public void filteredBySubjectExceptionTest(){
+    public void filteredBySubjectErrorTest(){
         try {
              CourseStructure.filteredBySubject(null, EMPTY_ARRAYLIST);
         } catch (IllegalArgumentException e){
@@ -175,6 +175,29 @@ public class CourseStructureTest {
             CourseStructure.filteredBySubject("fakeSubject", courseArrayList);
         }catch (Error e){
             assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @Test
+    public void filteredByCourseNumberRangeErrorTest(){
+        try {
+            CourseStructure.filteredByCourseNumRange(200, 100, courseArrayList);
+        } catch (Error e){
+            assertEquals( ErrorMessage.INVALID_BOUNDS, e.getMessage());
+        }
+    }
+
+    @Test
+    public void studentsInGradeRangeErrorTest(){
+        try {
+            CourseStructure.studentsInGradeRange("F-", "B-", courseArrayList);
+        }catch (IndexOutOfBoundsException e){
+            assertEquals(ErrorMessage.INVALID_GRADE, e.getMessage());
+        }
+        try {
+            CourseStructure.studentsInGradeRange("A+", "B-", courseArrayList);
+        }catch (Error e){
+            assertEquals(ErrorMessage.INVALID_BOUNDS, e.getMessage());
         }
     }
 
