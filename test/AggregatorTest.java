@@ -39,6 +39,8 @@ public class AggregatorTest {
         coursesInTest.add(testArrayList.get(1));
         assertEquals(3.7276, Aggregator.meanOfGradeWeight(coursesInTest), MAX_ERROR_RANGE);
     }
+
+    //exception test
     @Test
     public void studentsInGradeRangeErrorTest(){
         try {

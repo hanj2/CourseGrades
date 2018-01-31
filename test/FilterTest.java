@@ -63,21 +63,9 @@ public class FilterTest {
         assertEquals("34304", coursesIntest.get(0).getCRN());
     }
 
-    //aggregation method tests
-    @Test
-    public void totalNumOfStudentsTest(){
-        ArrayList<Course> coursesInTest = new ArrayList<>();
-        coursesInTest.add(testArrayList.get(0));
-        coursesInTest.add(testArrayList.get(1));
-        assertEquals(67,Aggregator.totalNumOfStudents(coursesInTest));
-    }
-
-    @Test
-    public void studentsIngGradeRangeTest(){
-        assertEquals(5, Aggregator.studentsInGradeRange("W","F",testArrayList));
-    }
-
     private static final double MAX_ERROR_RANGE = 0.001;
+
+    //filtering error tests
     @Test
     public void meanOfGradeWeightTest(){
         ArrayList<Course> coursesInTest = new ArrayList<>();
@@ -114,11 +102,13 @@ public class FilterTest {
             assertEquals(ErrorMessage.EMPTY_COURSE_ARRAYLIST, e.getMessage());
         } catch (NullPointerException e) {
             assertEquals(ErrorMessage.NULL_INSTRUCTOR_NAME, e.getMessage());
-        } try {
+        }
+        try {
             Filter.filteredByInstructor("david",null);
         } catch (IllegalArgumentException e){
             assertEquals(ErrorMessage.NULL_COURSE, e.getMessage());
-        } try {
+        }
+        try {
             Filter.filteredByInstructor("fakeInstructor", testArrayList);
         }catch (Error e){
             assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
@@ -133,8 +123,46 @@ public class FilterTest {
             assertEquals( ErrorMessage.INVALID_BOUNDS, e.getMessage());
         }catch (IllegalArgumentException e){
             assertEquals(ErrorMessage.EMPTY_COURSE_ARRAYLIST, e.getMessage());
-        }try {
+        }
+        try {
             Filter.filteredByCourseNumRange(800,900, testArrayList);
+        }catch (Error e){
+            assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @Test
+    public void filteredByStudNumErrorTest(){
+        try {
+            Filter.filteredByStudentNum(200, 100, EMPTY_ARRAYLIST);
+        }catch (Error e){
+            assertEquals( ErrorMessage.INVALID_BOUNDS, e.getMessage());
+        }catch (IllegalArgumentException e){
+            assertEquals(ErrorMessage.EMPTY_COURSE_ARRAYLIST, e.getMessage());
+        }
+        try {
+            Filter.filteredByCourseNumRange(10000,90099, testArrayList);
+        }catch (Error e){
+            assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @Test
+    public void filteredByTermErrorTest(){
+        try {
+            Filter.filteredByTerm(null, EMPTY_ARRAYLIST);
+        } catch (IllegalArgumentException e){
+            assertEquals(ErrorMessage.EMPTY_COURSE_ARRAYLIST, e.getMessage());
+        } catch (NullPointerException e) {
+            assertEquals(ErrorMessage.NULL_TERM, e.getMessage());
+        }
+        try {
+            Filter.filteredByTerm("120135",null);
+        }catch (IllegalArgumentException e){
+            assertEquals(ErrorMessage.NULL_COURSE, e.getMessage());
+        }
+        try {
+            Filter.filteredBySubject("fakeTerm", testArrayList);
         }catch (Error e){
             assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
         }

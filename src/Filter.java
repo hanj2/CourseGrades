@@ -121,7 +121,7 @@ public class Filter {
     public static ArrayList<Course> filteredByTerm (String term, ArrayList<Course> courses)
             throws NullPointerException, IllegalArgumentException, Error{
         if (term == null){
-            throw new IllegalArgumentException(ErrorMessage.NULL_TERM);
+            throw new NullPointerException(ErrorMessage.NULL_TERM);
         }
         if (courses == null){
             throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);

@@ -10,7 +10,7 @@ public class CourseTest {
     private Course[] courses;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
         Gson gson = new Gson();
         course = gson.fromJson(COURSE_JSON, Course.class);
         courses = gson.fromJson(COURSES_OF_SUMMER_2013_JSON, Course[].class);

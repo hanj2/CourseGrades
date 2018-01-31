@@ -6,7 +6,7 @@ import java.util.HashMap;
  */
 public class Aggregator{
     //a helper function that calculates the number of students of a course
-    public static int numberOfStudents(Course course) throws IllegalArgumentException{
+    private static int numberOfStudents(Course course) throws IllegalArgumentException{
         if (course == null){
             throw new IllegalArgumentException(ErrorMessage.NULL_COURSE);
         }
