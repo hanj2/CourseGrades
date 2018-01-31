@@ -31,7 +31,6 @@ public class Aggregator{
         }
         return totalNumOfStudents;
     }
-
     // some global variables representing the index in the grade array of each course, final for safety reason
     private static final int GRADE_A_PLUS = 0;
     private static final int GRADE_A = 1;
@@ -118,4 +117,5 @@ public class Aggregator{
         }
         return sumOfGrades / studentsOfAllCourses;
     }
+
 }
