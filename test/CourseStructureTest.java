@@ -20,7 +20,7 @@ public class CourseStructureTest {
     //loading methods tests
     @Test
     public void loadJsonTest(){
-        ArrayList<Course> coursesInTest = CourseStructure.loadJson(TEST_JSON);
+        ArrayList<Course> coursesInTest = Load.loadJson(TEST_JSON);
         boolean isEqual = true;
         if (testArrayList.size() != coursesInTest.size()){
             isEqual = false;
@@ -35,7 +35,7 @@ public class CourseStructureTest {
 
     @Test
     public void loadJsonByFileName(){
-        ArrayList<Course> coursesInTest = CourseStructure.loadJsonByFileName("TestExample.json");
+        ArrayList<Course> coursesInTest = Load.loadJsonByFileName("TestExample.json");
         boolean isEqual = true;
         if (testArrayList.size() != coursesInTest.size()){
             isEqual = false;
@@ -57,7 +57,7 @@ public class CourseStructureTest {
 
     @Test
     public void loadAllJsonFilesTest(){
-        ArrayList<Course> coursesInTest = CourseStructure.loadAllJsonFlies();
+        ArrayList<Course> coursesInTest = Load.loadAllJsonFlies();
         int allCourses = NUM_OF_COURSES_FA2013 + NUM_OF_COURSES_FA2014 + NUM_OF_COURSES_SP2013
                 + NUM_OF_COURSES_SP2014 + NUM_OF_COURSES_SU2013 + NUM_OF_COURSES_SU2014;
         assertEquals(allCourses, coursesInTest.size());
@@ -67,43 +67,43 @@ public class CourseStructureTest {
     //filtering methods tests
     @Test
     public void filteredBySubjectTest(){
-        assertEquals("34304", CourseStructure.filteredBySubject("STAT", testArrayList).get(0).getCRN());
+        assertEquals("34304", Filter.filteredBySubject("STAT", testArrayList).get(0).getCRN());
     }
 
     @Test
     public void filteredByInstructorTest(){
-        assertEquals("34304", CourseStructure.filteredByInstructor("David",
+        assertEquals("34304", Filter.filteredByInstructor("David",
                 testArrayList).get(0).getCRN());
-        assertEquals("34304", CourseStructure.filteredByInstructor("david",
+        assertEquals("34304", Filter.filteredByInstructor("david",
                 testArrayList).get(0).getCRN());
     }
 
     @Test
     public void filteredByCourseNumRange(){
-        assertEquals("30486", CourseStructure.filteredByCourseNumRange(100,
+        assertEquals("30486", Filter.filteredByCourseNumRange(100,
                 200, testArrayList).get(0).getCRN());
     }
 
     @Test
     public void numberOfStudentsTest(){
-        assertEquals(35, CourseStructure.numberOfStudents(testArrayList.get(0)));
+        assertEquals(35, Filter.numberOfStudents(testArrayList.get(0)));
     }
 
     @Test
     public void filteredByStudentNumTest(){
         assertEquals("34304",
-                CourseStructure.filteredByStudentNum(35,35, testArrayList).get(0).getCRN());
+                Filter.filteredByStudentNum(35,35, testArrayList).get(0).getCRN());
     }
 
     @Test
     public void filteredByTermTest(){
-        ArrayList<Course> allCourses = CourseStructure.loadAllJsonFlies();
-        assertEquals("37453", CourseStructure.filteredByTerm("120135", allCourses).get(0).getCRN());
+        ArrayList<Course> allCourses = Load.loadAllJsonFlies();
+        assertEquals("37453", Filter.filteredByTerm("120135", allCourses).get(0).getCRN());
     }
 
     @Test
     public void filteredByCourseAndInstructorTest(){
-        ArrayList<Course> coursesIntest = CourseStructure.filteredByCourseAndInstructor("stat",
+        ArrayList<Course> coursesIntest = Filter.filteredByCourseAndInstructor("stat",
                 440, "david", testArrayList);
         assertEquals("34304", coursesIntest.get(0).getCRN());
     }
@@ -114,12 +114,12 @@ public class CourseStructureTest {
         ArrayList<Course> coursesInTest = new ArrayList<>();
         coursesInTest.add(testArrayList.get(0));
         coursesInTest.add(testArrayList.get(1));
-        assertEquals(67,CourseStructure.totalNumOfStudents(coursesInTest));
+        assertEquals(67,Aggregator.totalNumOfStudents(coursesInTest));
     }
 
     @Test
     public void studentsIngGradeRangeTest(){
-        assertEquals(5, CourseStructure.studentsInGradeRange("W","F",testArrayList));
+        assertEquals(5, Aggregator.studentsInGradeRange("W","F",testArrayList));
     }
 
     private static final double MAX_ERROR_RANGE = 0.001;
@@ -128,14 +128,14 @@ public class CourseStructureTest {
         ArrayList<Course> coursesInTest = new ArrayList<>();
         coursesInTest.add(testArrayList.get(0));
         coursesInTest.add(testArrayList.get(1));
-        assertEquals(3.7276, CourseStructure.meanOfGradeWeight(coursesInTest), MAX_ERROR_RANGE);
+        assertEquals(3.7276, Aggregator.meanOfGradeWeight(coursesInTest), MAX_ERROR_RANGE);
     }
 
     //Exception tests
     @Test
     public void loadJsonErrorTest(){
         try {
-            CourseStructure.loadJson(null);
+            Load.loadJson(null);
         } catch (NullPointerException e){
             assertEquals(ErrorMessage.NULL_JSON_FILE, e.getMessage());
         }
@@ -143,7 +143,7 @@ public class CourseStructureTest {
     @Test
     public void loadJsonByFileNameErrorTest(){
         try {
-            CourseStructure.loadJsonByFileName(null);
+            Load.loadJsonByFileName(null);
         } catch (NullPointerException e){
             assertEquals(e.getMessage(), ErrorMessage.NULL_JSON_FILE_NAME);
         }
@@ -151,19 +151,19 @@ public class CourseStructureTest {
     @Test
     public void filteredBySubjectErrorTest(){
         try {
-             CourseStructure.filteredBySubject(null, EMPTY_ARRAYLIST);
+             Filter.filteredBySubject(null, EMPTY_ARRAYLIST);
         } catch (IllegalArgumentException e){
             assertEquals(ErrorMessage.EMPTY_COURSE_ARRAYLIST, e.getMessage());
         } catch (NullPointerException e) {
             assertEquals(ErrorMessage.NULL_SUBJECT, e.getMessage());
         }
         try {
-            CourseStructure.filteredBySubject("STAT",null);
+            Filter.filteredBySubject("STAT",null);
         }catch (IllegalArgumentException e){
             assertEquals(ErrorMessage.NULL_COURSE, e.getMessage());
         }
         try {
-            CourseStructure.filteredBySubject("fakeSubject", testArrayList);
+            Filter.filteredBySubject("fakeSubject", testArrayList);
         }catch (Error e){
             assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
         }
@@ -172,17 +172,17 @@ public class CourseStructureTest {
     @Test
     public void filteredByInstructorErrorTest(){
         try {
-            CourseStructure.filteredByInstructor(null, EMPTY_ARRAYLIST);
+            Filter.filteredByInstructor(null, EMPTY_ARRAYLIST);
         } catch (IllegalArgumentException e){
             assertEquals(ErrorMessage.EMPTY_COURSE_ARRAYLIST, e.getMessage());
         } catch (NullPointerException e) {
             assertEquals(ErrorMessage.NULL_INSTRUCTOR_NAME, e.getMessage());
         } try {
-            CourseStructure.filteredBySubject("david",null);
+            Filter.filteredBySubject("david",null);
         } catch (IllegalArgumentException e){
             assertEquals(ErrorMessage.NULL_COURSE, e.getMessage());
         } try {
-            CourseStructure.filteredBySubject("fakeInstructor", testArrayList);
+            Filter.filteredBySubject("fakeInstructor", testArrayList);
         }catch (Error e){
             assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
         }
@@ -191,13 +191,13 @@ public class CourseStructureTest {
     @Test
     public void filteredByCourseNumberRangeErrorTest(){
         try {
-            CourseStructure.filteredByCourseNumRange(200, 100, EMPTY_ARRAYLIST);
+            Filter.filteredByCourseNumRange(200, 100, EMPTY_ARRAYLIST);
         }catch (Error e){
             assertEquals( ErrorMessage.INVALID_BOUNDS, e.getMessage());
         }catch (IllegalArgumentException e){
             assertEquals(ErrorMessage.EMPTY_COURSE_ARRAYLIST, e.getMessage());
         }try {
-            CourseStructure.filteredBySubject("fakeInstructor", testArrayList);
+            Filter.filteredBySubject("fakeInstructor", testArrayList);
         }catch (Error e){
             assertEquals(ErrorMessage.NOT_FOUND, e.getMessage());
         }
@@ -206,12 +206,12 @@ public class CourseStructureTest {
     @Test
     public void studentsInGradeRangeErrorTest(){
         try {
-            CourseStructure.studentsInGradeRange("F-", "B-", testArrayList);
+            Aggregator.studentsInGradeRange("F-", "B-", testArrayList);
         }catch (IndexOutOfBoundsException e){
             assertEquals(ErrorMessage.INVALID_GRADE, e.getMessage());
         }
         try {
-            CourseStructure.studentsInGradeRange("A+", "B-", testArrayList);
+            Aggregator.studentsInGradeRange("A+", "B-", testArrayList);
         }catch (Error e){
             assertEquals(ErrorMessage.INVALID_BOUNDS, e.getMessage());
         }

@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class LoadJsonTest {
+public class LoadTest {
     private static final String TEST_JSON = Data.getFileContentsAsString("TestExample.json");
     private static final ArrayList<Course> EMPTY_ARRAYLIST = new ArrayList<>();
     private  ArrayList<Course> testArrayList = new ArrayList<>();
@@ -23,7 +23,7 @@ public class LoadJsonTest {
     //loading methods tests
     @Test
     public void loadJsonTest(){
-        ArrayList<Course> coursesInTest = CourseStructure.loadJson(TEST_JSON);
+        ArrayList<Course> coursesInTest = Load.loadJson(TEST_JSON);
         boolean isEqual = true;
         if (testArrayList.size() != coursesInTest.size()){
             isEqual = false;
@@ -38,7 +38,7 @@ public class LoadJsonTest {
 
     @Test
     public void loadJsonByFileName(){
-        ArrayList<Course> coursesInTest = CourseStructure.loadJsonByFileName("TestExample.json");
+        ArrayList<Course> coursesInTest = Load.loadJsonByFileName("TestExample.json");
         boolean isEqual = true;
         if (testArrayList.size() != coursesInTest.size()){
             isEqual = false;
@@ -60,10 +60,28 @@ public class LoadJsonTest {
 
     @Test
     public void loadAllJsonFilesTest(){
-        ArrayList<Course> coursesInTest = CourseStructure.loadAllJsonFlies();
+        ArrayList<Course> coursesInTest = Load.loadAllJsonFlies();
         int allCourses = NUM_OF_COURSES_FA2013 + NUM_OF_COURSES_FA2014 + NUM_OF_COURSES_SP2013
                 + NUM_OF_COURSES_SP2014 + NUM_OF_COURSES_SU2013 + NUM_OF_COURSES_SU2014;
         assertEquals(allCourses, coursesInTest.size());
         assertEquals("41758", coursesInTest.get(0).getCRN());
+    }
+    
+    //Exception tests
+    @Test
+    public void loadJsonErrorTest(){
+        try {
+            Load.loadJson(null);
+        } catch (NullPointerException e){
+            assertEquals(ErrorMessage.NULL_JSON_FILE, e.getMessage());
+        }
+    }
+    @Test
+    public void loadJsonByFileNameErrorTest(){
+        try {
+            Load.loadJsonByFileName(null);
+        } catch (NullPointerException e){
+            assertEquals(e.getMessage(), ErrorMessage.NULL_JSON_FILE_NAME);
+        }
     }
 }

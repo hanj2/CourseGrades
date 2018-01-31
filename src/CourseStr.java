@@ -10,7 +10,7 @@ import java.util.List;
  * filtering methods to filter Array lists of Courses
  * and aggregation methods to aggregate courses in some similar cases
  */
-public class CourseStructure {
+public class CourseStr {
     // method that load the provided Json File and parse it into an array list
     // parameters can't be null, so throw an IllegalArgumentException
     public static ArrayList<Course> loadJson(String jsonFile) throws NullPointerException{
