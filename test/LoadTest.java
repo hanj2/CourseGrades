@@ -11,7 +11,6 @@ import static org.junit.Assert.assertTrue;
 
 public class LoadTest {
     private static final String TEST_JSON = Data.getFileContentsAsString("TestExample.json");
-    private static final ArrayList<Course> EMPTY_ARRAYLIST = new ArrayList<>();
     private  ArrayList<Course> testArrayList = new ArrayList<>();
 
     @Before
@@ -66,7 +65,7 @@ public class LoadTest {
         assertEquals(allCourses, coursesInTest.size());
         assertEquals("41758", coursesInTest.get(0).getCRN());
     }
-    
+
     //Exception tests
     @Test
     public void loadJsonErrorTest(){
